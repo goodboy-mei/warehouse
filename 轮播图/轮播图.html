@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{margin: 0;padding:0;}
+        #banner{width: 600px;height:400px;border:3px solid #333;overflow: hidden;position:relative;}
+        #banner-list{width: 4200px;height: 400px;position:absolute;z-index: 1;}
+        #banner-list img{float:left;width: 600px;height: 400px;}
+        #banner-buttons{height: 10px;width: 100px;position: absolute;left: 250px;bottom: 20px;z-index: 2;}
+        #banner-buttons span{float: left;border: 1px solid #fff;width: 10px;height: 10px;background: #333;margin-right: 5px;cursor: pointer;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;}
+        #banner-buttons span.on{background: orangered;}
+        #banner:hover .arrow{display: block;}
+        .arrow{display: none;line-height: 39px;text-align: center;font-size: 36px;font-weight: bold;color: #fff;width: 40px;height: 40px;position: absolute;z-index: 2;top: 180px;background: rgba(0,0,0,.3);cursor: pointer;}
+        .arrow:hover{background: rgba(0,0,0,.7);}
+        #banner-prev{left:20px;}
+        #banner-next{right:20px;}
+    </style>
+</head>
+<body>
+<div id="banner">
+    <div id="banner-list" style="left: -600px;">
+        <img src="img/5.jpg" alt="">
+        <img src="img/1.jpg" alt="">
+        <img src="img/2.jpg" alt="">
+        <img src="img/3.jpg" alt="">
+        <img src="img/4.jpg" alt="">
+        <img src="img/5.jpg" alt="">
+        <img src="img/1.jpg" alt="">
+    </div>
+    <div id="banner-buttons">
+        <span index="1" class="on"></span>
+        <span index="2"></span>
+        <span index="3"></span>
+        <span index="4"></span>
+        <span index="5"></span>
+    </div>
+    <a href="javascript:;" class="arrow" id="banner-prev">&lt;</a>
+    <a href="javascript:;" class="arrow" id="banner-next">&gt;</a>
+</div>
+<!-- 定时器 -->
+<script type="text/javascript" src="js-setTimeout.js"></script>
+<!-- transition -->
+<!-- <script type="text/javascript" src="css3-transition.js"></script> -->
+</body>
+</html>
