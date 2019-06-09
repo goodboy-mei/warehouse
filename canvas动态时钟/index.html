@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8' />
+	<title>canvas时钟</title>
+</head>
+<body>
+	<canvas id="myCanvas" width="500" height="500">您的浏览器不支持canvas！</canvas>
+	<script type="text/javascript">
+		var canvas=document.getElementById('myCanvas');
+		//获取上下文(画笔)
+		var ctx=canvas.getContext('2d');
+		var grd=ctx.createLinearGradient(0,0,500,0);
+		grd.addColorStop(0,"orange");
+		grd.addColorStop(1,"green");
+		//表盘
+		function biaopan(){
+			//平移中心点
+			ctx.translate(canvas.width/2,canvas.height/2);
+			//1.表框
+			ctx.strokeStyle=grd;
+			ctx.lineWidth=5;
+			ctx.arc(0,0,200,0,Math.PI*2);//画圆
+			ctx.stroke();
+			//2.时钟刻度
+			ctx.strokeStyle='blue';
+			for(var i=0;i<12;i++){
+				ctx.beginPath();
+				ctx.moveTo(0,-160);
+				ctx.lineTo(0,-190);
+				ctx.stroke();
+				//旋转画布30度
+				ctx.rotate(Math.PI*2/12);
+			}
+			//3.分钟刻度
+			ctx.strokeStyle='blue';
+			ctx.lineWidth=2;
+			for(var i=0;i<60;i++){
+				ctx.beginPath();
+				ctx.moveTo(0,-175);
+				ctx.lineTo(0,-190);
+				ctx.stroke();
+				//旋转画布30度
+				ctx.rotate(Math.PI*2/60);
+			}
+			//获取时间
+			var d=new Date();
+			var h=d.getHours();
+			var m=d.getMinutes();
+			var s=d.getSeconds();  
+			//4.时钟
+			ctx.save();
+			ctx.rotate(Math.PI*2/12*h+(Math.PI*2/60*m+(Math.PI*2/60*s)/60)/12);
+			ctx.lineWidth=8;
+			ctx.strokeStyle='blue';
+			ctx.beginPath();
+			ctx.moveTo(0,0);
+			ctx.lineTo(0,-100);
+			ctx.stroke();
+			ctx.restore();
+			//5.分钟
+			ctx.save();
+			ctx.rotate(Math.PI*2/60*m+(Math.PI*2/60*s)/60);
+			ctx.lineWidth=4;
+			ctx.strokeStyle='cadetblue';
+			ctx.beginPath();
+			ctx.moveTo(0,0);
+			ctx.lineTo(0,-130);
+			ctx.stroke();
+			ctx.restore();
+			//6.秒钟
+			ctx.save();
+			ctx.rotate(Math.PI*2/60*s);
+			ctx.lineWidth=2;
+			ctx.strokeStyle='red';
+			ctx.beginPath();
+			ctx.moveTo(0,0);
+			ctx.lineTo(0,-160);
+			ctx.stroke();
+			ctx.restore();
+			//7.中心点
+			ctx.lineWidth=6;
+			ctx.strokeStyle='gray';
+			ctx.beginPath();
+			ctx.arc(0,0,10,0,Math.PI*2);
+			ctx.stroke();
+		}
+		
+		function run(){
+			ctx.beginPath();
+			ctx.clearRect(0,0,canvas.width,canvas.height);
+			ctx.save();
+			biaopan();
+			ctx.restore();
+		}
+		run();
+		setInterval(function(){
+			run();
+		},1000);
+	</script>
+</body>
+</html>
