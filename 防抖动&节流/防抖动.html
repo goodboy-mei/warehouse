@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>防抖动</title>
+	<style type="text/css">
+		#app{
+			height: 400px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<!-- 当鼠标移动时h2内容发生变化 -->
+	<!-- 优化这个onmousemove事件的性能 -->
+	<!-- 防抖原理：如果你在一个事件触发n秒内再次触发这个事件，此前事件不执行然后再以这个新事件为准，等待n秒，之后n秒内不触发事件，我才执行。简单来说就是：把在指定时间内可能会多次执行的方法打包成一次。
+	-->
+	<div id="app"></div>
+	<h2></h2>
+	<script type="text/javascript">
+		var app=document.getElementById('app');
+		var h2=document.querySelector('h2');
+		var count=1;
+		function debounce(fn,delay){
+			var timeout;
+			return function(){
+				var context=this;
+				var arg=arguments;//伪数组
+				clearTimeout(timeout);
+				timeout=setTimeout(function(){
+					fn.apply(context,arg);
+				},delay);
+			}
+		}
+		app.onmousemove=debounce(function(){
+			console.log(arguments);
+			h2.innerHTML=count++;
+		},500)
+	</script>
+</body>
+</html>

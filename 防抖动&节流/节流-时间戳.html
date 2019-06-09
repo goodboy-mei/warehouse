@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>节流-时间戳</title>
+	<style type="text/css">
+		#app{
+			height: 400px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<!-- 节流原理：如果持续触发事件，则该持续触发时间内，每隔一段事件，只执行一次事件。 -->
+	<!-- 两种实现方法：1.时间戳 2.定时器 -->
+	<div id="app"></div>
+	<h2></h2>
+	<script type="text/javascript">
+		var app=document.getElementById('app');
+		var h2=document.querySelector('h2');
+		var count=1;
+		//节流：使用时间戳
+		function throttle(fn,wait){
+			var previous=0;
+			return function(){
+				var context=this;
+				var arg=arguments;
+				var now=new Date();
+				if(now-previous>wait){
+					fn.apply(context,arg);
+					previous=now;
+				}
+			}
+		}
+		app.onmousemove=throttle(function(arg){
+			console.log(arg);
+			h2.innerHTML=count;
+			count++;
+		},500)
+	</script>
+</body>
+</html>
