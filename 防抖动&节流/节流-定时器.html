@@ -26,11 +26,10 @@
 				var arg=arguments;
 				if(!timeout){
 					timeout=setTimeout(function(){
-						timeout=0;
+						timeout=null;
 						fn.apply(context,arg);
 					},wait);
 				}
-				
 			}
 		}
 		app.onmousemove=throttle(function(arg){
